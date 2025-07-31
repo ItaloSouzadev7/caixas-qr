@@ -1,0 +1,20 @@
+<!-- templates/form.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Caixa</title>
+</head>
+<body>
+    <h1>Cadastrar Nova Caixa</h1>
+    <form method="post">
+        <label>Código da Caixa:<br><input type="text" name="codigo" required></label><br><br>
+        <label>Tipo de Documento:<br><input type="text" name="documento"></label><br><br>
+        <label>Cliente:<br><input type="text" name="cliente"></label><br><br>
+        <label>Período:<br><input type="text" name="periodo"></label><br><br>
+        <label>Localização Física:<br><input type="text" name="localizacao"></label><br><br>
+        <label>Observações:<br><textarea name="obs"></textarea></label><br><br>
+        <button type="submit">Cadastrar e Gerar QR Code</button>
+    </form>
+</body>
+</html>
