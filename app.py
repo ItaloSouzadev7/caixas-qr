@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
@@ -22,6 +21,9 @@ def init_db():
         ''')
         conn.commit()
 
+# ⚠️ IMPORTANTE: Rodar SEMPRE, até na nuvem!
+init_db()
+
 @app.route('/')
 def home():
     return redirect(url_for('cadastrar'))
@@ -42,8 +44,8 @@ def cadastrar():
             cursor.execute('INSERT OR REPLACE INTO caixas VALUES (?, ?, ?, ?, ?, ?)', dados)
             conn.commit()
 
-        # Gerar QR Code com IP fixo da rede local
-        base_url = "http://192.168.1.111:5000"
+        # URL base pública do Render
+        base_url = "https://caixas-qr.onrender.com"
         qr_path = os.path.join('static', f"qr_{dados[0]}.png")
         img = qrcode.make(f"{base_url}/caixa/{dados[0]}")
         img.save(qr_path)
@@ -58,7 +60,3 @@ def ver_caixa(codigo):
         cursor.execute('SELECT * FROM caixas WHERE codigo = ?', (codigo,))
         dados = cursor.fetchone()
     return render_template('caixa.html', dados=dados)
-
-if __name__ == '__main__':
-    init_db()
-    app.run(debug=True, host='0.0.0.0', port=5000)
